@@ -31,8 +31,8 @@
         <tr th:each="pizza : ${pizzaList}">
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.description}"></td>
-            <td><img th:src="${pizza.photo}"></td>
-            <td th:text="${pizza.price}"></td>
+            <td><img th:src="${pizza.photo}" width="100" height="100"></td>
+            <td th:text="${pizza.price + '$'}"></td>
             <td>
                 <a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}">Detail</a>
             </td>

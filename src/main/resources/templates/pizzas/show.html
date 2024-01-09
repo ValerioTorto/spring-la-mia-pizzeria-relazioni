@@ -16,8 +16,8 @@
 <div class="container">
     <h1 th:text="${pizza.name}"></h1>
     <h2 th:text="${pizza.description}"></h2>
-    <p>Foto:<span> <img th:src="${pizza.photo}"></span></p>
-    <p>Prezzo <span th:text="${pizza.price}">$</span></p>
+    <p>Foto:<span> <img th:src="${pizza.photo}" width="300" height="300"></span></p>
+    <p>Prezzo <span th:text="${pizza.price + '$'}"></span></p>
     <div class="mt-3">
         <a th:href="@{/pizzas}" class="btn btn-primary">Back to list</a>
     </div>
