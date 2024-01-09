@@ -35,10 +35,6 @@ public class PizzaController {
             return "pizzas/show";
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
-
         }
     }
-
-
-
 }
