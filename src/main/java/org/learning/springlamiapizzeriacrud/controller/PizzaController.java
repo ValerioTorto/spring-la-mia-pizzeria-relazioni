@@ -76,4 +76,9 @@ public class PizzaController {
 
         }
     }
+    //metodo che restituisce pagina modifica della pizza
+    @GetMapping("/edit/{id}")
+    public String edit (@PathVariable Integer id) {
+        return "pizzas/edit";
+    }
 }

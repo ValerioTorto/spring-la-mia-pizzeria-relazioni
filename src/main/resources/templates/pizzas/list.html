@@ -35,6 +35,7 @@
             <td th:text="${pizza.price + '$'}"></td>
             <td>
                 <a class="btn btn-primary" th:href="@{/pizzas/show/{id}(id=${pizza.id})}">Detail</a>
+                <a class="btn btn-primary" th:href="@{/pizzas/edit/{id}(id=${pizza.id})}">Edit</a>
             </td>
         </tr>
         </tbody>
