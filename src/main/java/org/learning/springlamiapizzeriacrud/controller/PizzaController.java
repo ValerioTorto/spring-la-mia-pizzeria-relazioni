@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -76,9 +77,43 @@ public class PizzaController {
 
         }
     }
+
     //metodo che restituisce pagina modifica della pizza
     @GetMapping("/edit/{id}")
-    public String edit (@PathVariable Integer id) {
-        return "pizzas/edit";
+    public String edit(@PathVariable Integer id, Model model) {
+        //recupero pizza dal database
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            //la passo come attributo del model
+            model.addAttribute("pizza", result.get());
+            //ritorno il template
+            return "pizzas/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza with id " + id + " not found");
+        }
     }
-}
+
+    //metodo che riceve il submit del form
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid Pizza formPizza, BindingResult bindingResult) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isPresent()) {
+            Pizza pizzaToEdit = result.get();
+            //validare dati della pizza
+            if (bindingResult.hasErrors()) {
+                //se ci sono errori di validazione
+                return "pizzas/edit";
+            }
+
+                //se sono validi salvo la pizza sul db
+                //prima di salvare i dati su db recupero il valore del campo createdAt
+                formPizza.setCreatedAt(pizzaToEdit.getCreatedAt());
+                Pizza savedPizza = pizzaRepository.save(formPizza);
+                //faccio la redirect alla pagina dettaglio della pizza
+                return "redirect:/pizzas/show/" + id;
+            } else {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza with id " + id + " not found");
+            }
+        }
+    }
+

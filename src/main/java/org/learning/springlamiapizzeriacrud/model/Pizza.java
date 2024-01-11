@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "pizzas")
 public class Pizza {
@@ -24,8 +26,17 @@ public class Pizza {
     private String description;
     private String photo;
     private Double price;
+    private LocalDateTime createdAt;
 //METODI
 
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public Integer getId() {
         return id;
