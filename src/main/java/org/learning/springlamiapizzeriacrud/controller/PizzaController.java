@@ -115,5 +115,11 @@ public class PizzaController {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "pizza with id " + id + " not found");
             }
         }
+        //metodo che cancella una pizza presa per id
+    @PostMapping("/delete/{id}") //se metti pizzas/ prima di delete è come se fosse pizzas/pizzas/delete etc
+    public String delete(@PathVariable Integer id) {
+    pizzaRepository.deleteById(id);
+    return "redirect:/pizzas";
+    }
     }
 
