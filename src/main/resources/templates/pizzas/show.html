@@ -13,7 +13,9 @@
 </head>
 <body>
 <!-- Attributi: pizza(Pizza) -->
-<div class="container">
+<main class="container">
+    <!--Section dettagli pizza-->
+    <section>
     <h1 th:text="${pizza.name}"></h1>
     <h2 th:text="${pizza.description}"></h2>
     <p>Foto:<span> <img th:src="${pizza.photo}" width="300" height="300"></span></p>
@@ -21,7 +23,28 @@
     <div class="mt-3">
         <a th:href="@{/pizzas}" class="btn btn-primary">Back to list</a>
     </div>
-</div>
+    </section>
+    <!--Section dettagli Discounts-->
+    <section class="mt-5">
+        <h3>Discounts</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>Expire Date</th>
+                <th>Note</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dsc : ${pizza.discounts}">
+                <td th:text="${dsc.startDate}"></td>
+                <td th:text="${dsc.expireDate}"></td>
+                <td th:text="${dsc.note}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

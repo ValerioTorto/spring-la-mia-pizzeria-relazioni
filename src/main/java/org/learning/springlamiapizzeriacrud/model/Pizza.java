@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pizzas")
@@ -27,6 +28,10 @@ public class Pizza {
     private String photo;
     private Double price;
     private LocalDateTime createdAt;
+    //attributo che rappresenta gli sconti
+    @OneToMany(mappedBy = "pizza")
+    //no nuova relazione gia definita su pizza discount
+    private List<Discount> discounts;
 //METODI
 
 
@@ -36,6 +41,15 @@ public class Pizza {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(List<Discount> discounts) {
+        this.discounts = discounts;
     }
 
     public Integer getId() {

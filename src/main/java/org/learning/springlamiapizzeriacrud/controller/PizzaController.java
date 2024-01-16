@@ -26,15 +26,21 @@ public class PizzaController {
         model.addAttribute("pizzaList", pizzaList);
         return "pizzas/list";
     }
-
-    @GetMapping("show/{id}")
+    //Metodo che mostra i dettagli di una singola pizza
+    @GetMapping("show/{id}") //pizzas/show/{id}
     public String show(@PathVariable Integer id, Model model) {
+        //nel corpo del metodo ho l'id della pizza da cercare
         Optional<Pizza> result = pizzaRepository.findById(id);
+        //verifico se la pizza è stata trovata
         if (result.isPresent()) {
+            //estraggo la pizza dall'optional
             Pizza pizza = result.get();
+            //aggiungo al model l'attributo con la pizza
             model.addAttribute("pizza", pizza);
+            //restituisco il template
             return "pizzas/show";
         } else {
+            //gestisco il caso in cui la pizza nel database non c'è
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
         }
     }
