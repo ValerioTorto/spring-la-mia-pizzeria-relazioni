@@ -16,6 +16,13 @@
 <div class="container">
     <h1>Pizza List</h1>
     <hr>
+    <!--Box di ricerca -->
+    <form action="">
+        <input class="form-control" type="text" name="search" id="search"
+        placeholder="Search pizzas by title">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <!--lista-->
     <div class="alert alert-info" th:if="${pizzaList.size() == 0}">The list is empty</div>
     <table class="table" th:unless="${pizzaList.size() == 0}">
         <thead>
