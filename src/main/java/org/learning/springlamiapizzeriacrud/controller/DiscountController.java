@@ -1,6 +1,7 @@
 package org.learning.springlamiapizzeriacrud.controller;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.validation.Valid;
 import org.learning.springlamiapizzeriacrud.model.Discount;
 import org.learning.springlamiapizzeriacrud.model.Pizza;
 import org.learning.springlamiapizzeriacrud.repository.DiscountRepository;
@@ -9,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
@@ -53,11 +52,20 @@ public class DiscountController {
         }
     }
     @PostMapping("/create")
-    public String store(Discount formDiscount){
+    public String store(@Valid @ModelAttribute("discount") Discount formDiscount,
+                        BindingResult bindingResult, Model model){
         //valido l'oggeetto
+        if(bindingResult.hasErrors()) {
 
-        //se ci sono errori ritorno al template del form
 
+            //se ci sono errori ritorno al template del form
+        model.addAttribute("pizza", formDiscount.getPizza());
+        return "discounts/create";
+        }
+        if (formDiscount.getExpireDate() != null && formDiscount.getExpireDate()
+                .isBefore(formDiscount.getStartDate())) {
+            formDiscount.setExpireDate(formDiscount.getStartDate().plusDays(30));
+        }
         //se non ci sono errori lo salvo sul db
        Discount storedDiscount = discountRepository.save(formDiscount);
         //faccio una redirect alla pagina di dettaglio della pizza
