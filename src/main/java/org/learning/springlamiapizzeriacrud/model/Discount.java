@@ -14,6 +14,7 @@ public class Discount {
     private LocalDate startDate;
     @Column(nullable = false)
     private LocalDate expireDate;
+    @Lob
     private String note;
     @ManyToOne
     private Pizza pizza;

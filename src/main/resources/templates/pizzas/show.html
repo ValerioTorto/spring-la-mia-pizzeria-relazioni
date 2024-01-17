@@ -28,7 +28,8 @@
     <section class="mt-5">
         <h3>
             <span>Discounts</span>
-            <a th:href="@{/discounts/create}" class="btn btn-primary">+</a>
+            <!--/discounts/create?pizzaId-->
+            <a th:href="@{/discounts/create(pizzaId=${pizza.id})}" class="btn btn-primary">+</a>
         </h3>
         <table class="table" th:if="${pizza.discounts.size() > 0}">
             <thead>
