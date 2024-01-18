@@ -2,6 +2,7 @@ package org.learning.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
 import org.learning.springlamiapizzeriacrud.model.Pizza;
+import org.learning.springlamiapizzeriacrud.repository.IngredientRepository;
 import org.learning.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -50,14 +53,17 @@ public class PizzaController {
     public String create(Model model) {
         //passo tramite model attributo di tipo pizza vuoto
         model.addAttribute("pizza", new Pizza());
+        //passo tramite model la lista di tutti gli ingredienti disponibili
+        model.addAttribute("ingredientList", ingredientRepository.findAll());
         return "pizzas/create";
     }
 
     //metodo che riceve il submit del form di creazione e salva su dB la pizza
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         //valido i dati del book cioè verifico se bindingResult ha errori
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredientList", ingredientRepository.findAll());
             return "pizzas/create";
         }
         //verifico se nome della pizza già è in DB

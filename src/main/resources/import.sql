@@ -7,3 +7,7 @@ INSERT INTO db_pizzeria.pizzas(id, price, description, name, photo)VALUES(3, 10,
 INSERT INTO db_pizzeria.discounts (expire_date, pizza_id, start_date, note) VALUES('2024-05-10', 1, '2023-12-10', '');
 INSERT INTO db_pizzeria.discounts (expire_date, pizza_id, start_date, note) VALUES('2024-08-05', 2, '2023-12-05', '');
 INSERT INTO db_pizzeria.discounts (expire_date, pizza_id, start_date, note) VALUES('2024-06-02', 3, '2023-12-02', 'Anno Pazzo');
+--Insert ingredients
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Salsiccia');
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Patate al forno');
+INSERT INTO db_pizzeria.ingredients (name) VALUES('Gorgonzola');

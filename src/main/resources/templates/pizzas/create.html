@@ -24,6 +24,9 @@
         th:action="@{/pizzas/create}"
         class="row"
         >
+        <!--Campi dettaglio pizza-->
+        <div class="col-9">
+            <div class="row">
         <div class="col-6">
             <label class="form-label" for="name">Name</label>
             <input class="form-control" type="text" id="name" th:field="*{name}"
@@ -33,6 +36,7 @@
             <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
         </ul>
             </div>
+        </div>
         <div class="col-6">
             <label class="form-label" for="description">Description</label>
             <input class="form-control" type="text" id="description" th:field="*{description}"
@@ -42,6 +46,7 @@
                     <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
                 </ul>
             </div>
+        </div>
         <div class="col-6">
             <label class="form-label" for="price">Price</label>
             <input class="form-control" type="number" min="0" value="0" step=".01" id="price" th:field="*{price}"
@@ -50,13 +55,39 @@
                 <ul>
                     <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
                 </ul>
+            </div>
         </div>
+
+            </div>
+        </div>
+
+            <!--Ingredienti-->
+            <div class="col-3">
+                <h4>Ingredienti</h4>
+                <!--Creo un form-check per ogni Ingredient della lista ingredientList-->
+                <div class="form-check" th:each="ing : ${ingredientList}">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           th:value="${ing.id}"
+                           th:id="|ing-${ing.id}"
+                           th:field="*{ingredients}"
+                    >
+                    <label class="form-check-label" th:for="|ing-${ing.id}|" th:text="${ing.name}"></label>
+                </div>
+            </div>
+
+
+
+            <!--bottoni-->
         <div class="col-12">
         <button type="submit" class="btn btn-primary mt-4">Save pizza</button>
             <a class="btn btn-primary mt-4" th:href="@{/pizzas}">Cancel</a>
         </div>
     </form>
 </div>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
