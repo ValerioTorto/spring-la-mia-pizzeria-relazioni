@@ -32,8 +32,9 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza")
     //no nuova relazione gia definita su pizza discount
     private List<Discount> discounts;
+    @ManyToMany
+    private List<Ingredient> ingredients;
 //METODI
-
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -90,5 +91,13 @@ public class Pizza {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
