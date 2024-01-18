@@ -95,6 +95,8 @@ public class PizzaController {
         if (result.isPresent()) {
             //la passo come attributo del model
             model.addAttribute("pizza", result.get());
+            //passo la lista di tutti gli ingredients
+            model.addAttribute("ingredientList", ingredientRepository.findAll());
             //ritorno il template
             return "pizzas/edit";
         } else {

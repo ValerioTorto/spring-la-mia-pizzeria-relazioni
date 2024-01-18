@@ -12,9 +12,11 @@
     <title>Edit Pizza</title>
 </head>
 <body>
+<!--Attributi pizza(Pizza), ingredientList(List<Ingredient>)-->
 <div class="container">
 <h1>Edit Pizza</h1>
 <hr>
+    <!--Form di edit-->
 <form
     id="edit-pizza"
     method="post"
@@ -22,6 +24,7 @@
     th:action="@{/pizzas/edit/{id}(id=${pizza.id})}"
     >
     <div class="col-6">
+        <div class="row">
         <label class="form-label" for="name">Name</label>
         <input class="form-control" type="text" id="name" th:field="*{name}" th:errorClass="is-invalid">
         <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
@@ -47,6 +50,20 @@
             </ul>
         </div>
     </div>
+    </div>
+        <div class="col-4">
+            <h4>Ingredients</h4>
+            <!--Creo un form-check per ogni Ingredient della lista ingredientList-->
+            <div class="form-check" th:each="ing : ${ingredientList}">
+                <input class="form-check-input"
+                       type="checkbox"
+                       th:value="${ing.id}"
+                       th:id="|ing-${ing.id}"
+                       th:field="*{ingredients}"
+                >
+                <label class="form-check-label" th:for="|ing-${ing.id}|" th:text="${ing.name}"></label>
+            </div>
+        </div>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Save</button>
         <a class="btn btn-primary" th:href="@{/pizzas}">Cancel</a>

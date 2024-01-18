@@ -15,11 +15,22 @@
 <!-- Attributi: pizza(Pizza) -->
 <main class="container">
     <!--Section dettagli pizza-->
-    <section>
-    <h1 th:text="${pizza.name}"></h1>
-    <h2 th:text="${pizza.description}"></h2>
-    <p>Foto:<span> <img th:src="${pizza.photo}" width="300" height="300"></span></p>
-    <p>Prezzo <span th:text="${pizza.price + '$'}"></span></p>
+    <section class="row">
+        <h1 th:text="${pizza.name}"></h1>
+        <h2 th:text="${pizza.description}"></h2>
+        <hr>
+        <!--Dettagli-->
+        <div class="col-6">
+            <p>Foto:<span> <img th:src="${pizza.photo}" width="300" height="300"></span></p>
+            <p>Prezzo <span th:text="${pizza.price + '$'}"></span></p>
+            </div>
+        <!--Ingredients-->
+        <div class="col-6">
+            <h4>Ingredients</h4>
+            <ul>
+                <li th:each="ing : ${pizza.ingredients}" th:text="${ing.name}"></li>
+            </ul>
+        </div>
     <div class="mt-3">
         <a th:href="@{/pizzas}" class="btn btn-primary">Back to list</a>
     </div>
